@@ -1,11 +1,15 @@
 import React from 'react'
-import NewAdd from './newaddbox'
+import NewMedia from './newbox'
+import NewAddMedia from './newaddbox'
+import Nostalgy from './nostalgybox'
 
 const Boxes = () => {
   return (
       <div className='flex flex-col'>
-          <NewAdd/>
-          <NewAdd/>
+          <NewMedia/>
+          <NewAddMedia/>
+          <Nostalgy/>
+          
 
     </div>
   )

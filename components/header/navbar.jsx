@@ -24,16 +24,16 @@ function Navbar() {
       <nav className="container m-auto p-5 flex justify-between items-center h-15">
         <Link href="/" className="flex justify-center items-center">
           <Image
-            src="/images/logo.png"
+            src="/images/logo-header.png"
             alt="logo"
-            width={50}
-            height={50}
+            width={200}
+            height={85}
             className="object-contain"
           />
         </Link>
         {!session ? (
           <>
-            <div>
+            {/* <div>
               <Link
                 href="/login"
                 className="border border-white px-2 py-1 m-1 rounded-lg"
@@ -46,7 +46,7 @@ function Navbar() {
               >
                 عضویت
               </Link>
-            </div>
+            </div> */}
           </>
         ) : (
           <>

@@ -5,8 +5,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from 'swiper/modules';
 import "swiper/css";
 import 'swiper/css/navigation';
+import Loading from '@/components/elements/loading'
 
-const Items = (props) => {
+const Items = ({newItems}) => {
  
   return (
       <Swiper
@@ -34,13 +35,17 @@ const Items = (props) => {
           },
         }}
       >
+ {newItems == -1 ? (
+          <Loading/>
+        ) : newItems == -2 ? (
+          <Loading/>
+        ) : (
 
-
-        {props.newItems.map((da, i) => (
+        newItems.map((da, i) => (
           <SwiperSlide>
             <Item data={da} key={i} />
           </SwiperSlide>
-        ))}
+        )))}
       </Swiper>
  
   );

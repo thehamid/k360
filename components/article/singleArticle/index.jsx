@@ -1,18 +1,16 @@
-'use client'
-import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
 
 const Article = ({ data }) => {
-    console.log(data)
+
   return (
     <div className='single_article container mx-auto flex lg:flex-row flex-col p-5'>
       <section className='content flex flex-col justify-center basis-8/12 m-2'>
         <h2 className='font-extrabold sm:text-2xl  text-lg text-center p-8'>{data.title}</h2>
         <div className='flex justify-between justify-items-center border-b-2 border-t-2 border-gray-900 p-3 '>
           <span>تاریخ: {data.createdAt} </span>
-          <span>نویسنده: {data.author }</span>
+          <span>نویسنده: {data.author.name }</span>
           <span>دسته:  {data.cats.map((cat,i) => (
             <Link href={`/category/${cat.slug}`} key={i} className='p-2'>{cat.title}</Link>
           )) }</span>

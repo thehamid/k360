@@ -1,42 +1,58 @@
-'use client'
-import { useState, useEffect } from "react";
-import Article from '@/components/article/singleArticle'
 import axios from "axios";
-
-
-const SingleArticle = (req) => {
-  const [postData,setpostData] = useState();
-
-  const slug=req.params.slug
-
-  useEffect(() => {
-    getData()
-   
-  }, [slug])
+import Loading from '@/components/elements/loading'
+import dynamic from 'next/dynamic'
+const Article = dynamic(() => import('@/components/article/singleArticle'), { ssr: false })
 
   
-  //get userData from DB
-  async function getData() {
-        await axios
-      .get(`/api/articles/${slug}`)
-      .then(
-        (d) => {
-          setpostData(d.data.data)
-          console.log(d.data.data)
-        }
-      )
-      .catch((e) => console.log(e.response));
-
-     
+ //get Data from DB
+ const getData = async (slug) => {
+  try {
+    // use data destructuring to get data from the promise object
+    const { data: response } = await axios.get(`${process.env.SERVER_URL}/api/articles/${slug}`); 
+    return response;
+  } catch (error) {
+    console.log(error);
   }
+}
+
+export async function generateMetadata({ params}) {
+  const siteURL = process.env.SERVER_URL;
+  const data= await getData(params.slug)
+
+  return {
+     title:`${data.data.title}`,
+     description:`${data.data.excerpt}`,
+     alternates: {
+        canonical: `${siteURL}/article/${params.slug}`,
+     },
+     robots: {
+        index: true,
+        follow: true,
+        nocache: true,
+     },
+  };
+}
 
 
+
+
+
+
+
+
+
+
+
+const SingleArticle = async ({params}) => {
+
+  const postData = await getData(params.slug)
+  console.log(postData)
   return (
     <div>
       {!postData ?
-        <h3 className="text-center text-red-600">Loading...</h3> 
+        <Loading/>
         :
-        <Article data={postData} />
+        <Article data={postData.data} />
       }
     </div>
    

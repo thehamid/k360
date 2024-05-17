@@ -4,20 +4,25 @@ import "react-toastify/dist/ReactToastify.css";
 import localfont from "next/font/local";
 import Footer from "../components/footer/footer";
 import Header from "@/components/header/header";
-
 import { getServerSession } from "next-auth";
 import SessionProvider from "@/utils/SessionProvider";
 import ReduxToolkitProvider from "@/utils/ReduxToolkitProvider";
-
 
 const PinarFont = localfont({
   src: "../public/fonts/Pinar-FD-VF.woff2",
 });
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+};
+
 export const metadata = {
   title: {
-    template: '%s | کلاکت 360',
-    default: 'کلاکت 360 | سریال ایرانی',
+    template: "%s | کلاکت 360",
+    default: "کلاکت 360 | سریال ایرانی",
   },
   description: "مرجع سریال های ایرانی",
 };
@@ -41,6 +46,14 @@ export default async function RootLayout({ children }) {
         />
         <SessionProvider session={session}>
           <ReduxToolkitProvider>
+            <>
+              <meta charset="utf-8" />
+              <link
+                rel="shortcut icon"
+                href="/images/kelaket360.ico"
+                type="image/x-icon"
+              />
+            </>
             <Header />
             {children}
             <Footer />

@@ -30,7 +30,10 @@ const articleSchema = new Schema(
       default:true,
     },
     tags:[String],
-    cats:[String],
+    cats:{
+      type: [mongoose.Types.ObjectId],
+      ref: "ArticleCats",
+    },
     author: {
       type: mongoose.Types.ObjectId,
       ref: "User",

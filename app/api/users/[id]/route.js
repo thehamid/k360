@@ -1,21 +1,17 @@
 import connect from '@/utils/db'
 import User from "@/models/User"
-import { NextRequest, NextResponse } from 'next/server';
-import { QueryOptions } from 'mongoose';
+import { NextResponse } from 'next/server';
+
 
 export async function GET(req, { params }) {
-    await connect();
-    
-    const id =params.id;
-      
+    await connect();  
+    const id = params.id;    
     try {
-        const user = await User.findById(id);
-        // return new NextResponse(JSON.stringify(user), { status: 200 });
+        const user = await User.findById(id).select({name:1,username:1,roles:1,active:1,avatar:1})
          return  NextResponse.json({data:user}, { status: 200 });
     
       
     } catch (error) {
-        // return new NextResponse(JSON.stringify(null), { status: 500 });
         return  NextResponse.json({data:'failed'}, { status: 500 });
     }
 }

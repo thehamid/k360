@@ -6,13 +6,17 @@ import User from '@/models/User';
 import connect from '@/utils/db';
 
 
+
 const DashboardLayout = async ({ children }) => {
     const session= await getServerSession()
+  if(!session) {  
+    redirect("/");
+  } 
   await connect()
   const user = await User.findOne({ email: session.user.email })
-  if (!user) return '<h3>در اتصال به پایگاه داده مشکلی به وجود آمده</h3>'
-  if (!session || user.roles!=100 ) {  
-    redirect("/");
+  if (!user) return(<h3 className="text-red-600 flex justify-center p-4 min-h-svh">  کاربری با این مشخصات وجود ندارد </h3>)
+  if (user.roles != 100) {
+    return (<h3 className="text-red-600 flex justify-center items-center p-4 min-h-svh">شما اجازه دسترسی به این صفحه را ندارید!</h3>)
   }
 
  
@@ -33,7 +37,7 @@ const DashboardLayout = async ({ children }) => {
               <Link className= 'hover:bg-zinc-600  flex justify-center p-2' href='/dashboard/reviews'>بررسی‌ها</Link>
             </li>        
              <li className='mb-2'>
-              <Link className= 'hover:bg-zinc-600  flex justify-center p-2' href='/dashboard/actors'>عوامل</Link>
+              <Link className= 'hover:bg-zinc-600  flex justify-center p-2' href='/dashboard/persons'>اشخاص</Link>
             </li>      
             <li className='mb-2'>
               <Link className= 'hover:bg-zinc-600  flex justify-center p-2' href='/dashboard/users'>کاربران</Link>

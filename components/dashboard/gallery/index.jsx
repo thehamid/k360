@@ -9,6 +9,7 @@ const GalleryDash = () => {
   const [files, setFiles] = useState(-1);
   const [img, setImage] = useState();
   const [reload, setReload] = useState(false);
+  const [itemID, setItemID] = useState();
 
   useEffect(() => {
     async function fetchData() {
@@ -35,8 +36,9 @@ const GalleryDash = () => {
       .catch((e) => console.log(e.response));
   };
 
-    const selectImage = (e) => {
-    setImage(e.target.alt);
+    const selectImage = (img) => {
+    setImage(img.url);
+    setItemID(img._id);
   };
 
 
@@ -70,6 +72,12 @@ const GalleryDash = () => {
             name="Imageurl"
             defaultValue={img}
           />
+                           <span
+                                  onClick={() => deletehandler(itemID)}
+                                  className="text-red-600 text-sm pt-6 cursor-pointer"
+                                >
+                                  حذف تصویر از گالری
+                                </span> 
           
         </div>
       </div>
@@ -79,20 +87,20 @@ const GalleryDash = () => {
         ) : files == -2 ? (
           <p>Error...</p>
         ) : (
-          <div className="grid grid-cols-3 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-3 md:grid-cols-6 gap-4">
                 {files.map((item, i) => (
              <div className="relative">
               < Image
-                onClick = { selectImage }
-                className = "block h-full w-full rounded-lg object-cover object-center cursor-pointer"
+                onClick = { () => selectImage(item) }
+                      className="block h-full w-full rounded-lg object-cover object-center cursor-pointer"
+                      style={{ border : itemID===item._id ? '3px solid #FF0032' : 'none' }}
                 key = { i }
                 src = { item.url }
                 width = { 200}
                 height = { 200}
-                alt = { item.url }
+                alt = { item._id }
                 priority = { true}
                   />
-                  <span  onClick={() => deletehandler(item._id)} className="absolute bottom-4 right-3 py-[1px] px-[10px] text-white text-center cursor-pointer bg-red-600 rounded-2xl" >x</span>
                   </div>
                   ))}
           </div>

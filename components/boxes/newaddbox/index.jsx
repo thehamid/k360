@@ -1,70 +1,40 @@
-import React from 'react'
+"use client";
+import { useState, useEffect } from "react";
 import Items from '../../items'
+import axios from "axios";
 
-const NewAdd = () => {
+const NewAddMedia = () => {
+   const [allMedia, setallMedia] = useState(-1);
 
-  const newseries = [
-    {
-       img: "/images/davinchiz.jpg",
-       link:"link1"
-    },
-    {
-       img: "/images/davinchiz.jpg",
-       link:"link2"
-    },
-    {
-       img: "/images/davinchiz.jpg",
-       link:"link1"
-    },
-    {
-       img: "/images/davinchiz.jpg",
-       link:"link1"
-    },
-    {
-       img: "/images/davinchiz.jpg",
-       link:"link1"
-    },
-    {
-       img: "/images/davinchiz.jpg",
-       link:"link1"
-    },
-    {
-       img: "/images/davinchiz.jpg",
-       link:"link1"
-    },
-    {
-       img: "/images/davinchiz.jpg",
-       link:"link1"
-    },
-    {
-       img: "/images/davinchiz.jpg",
-       link:"link1"
-    },
-    {
-       img: "/images/davinchiz.jpg",
-       link:"link1"
-    },
-    {
-       img: "/images/davinchiz.jpg",
-       link:"link1"
-    },
-    {
-       img: "/images/davinchiz.jpg",
-       link:"link1"
-    },
- ]
+
+    useEffect(() => {
+        getData();
+      }, []);
+      //get
+      async function getData() {
+        await axios
+          .get(`/api/medias/boxes/newadds`)
+          .then((d) => {
+             setallMedia(d.data.data)
+          })
+          .catch((e) => {
+            console.log(e.response);
+            setallMedia(-2);
+          });
+      }
+
 
 
 
     return (
       <div className='slider mt-5 xl:mr-48 mr-5 overflow-visible xl:container'>
-        <h3 className='text-red-600 font-bold text-2xl '>تازه‌ها</h3>
-        <div className='border-b-4 w-5 border-red-600 p-1 mb-5 '></div>
-
-        <Items newItems={newseries} />
+      <h2 className="pinline text-xl  font-extrabold text-red-600">
+            تازهای 360
+      </h2>
+        <Items newItems={allMedia} />
       </div>
     
   )
 }
 
-export default NewAdd
+export default NewAddMedia
