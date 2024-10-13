@@ -5,7 +5,7 @@ import {useState,useEffect } from "react";
 
 
 const ImageUpload = ({onInput,src}) => {
-  const [previewUrl, setPreviewUrl] = useState(src);
+  const [previewUrl, setPreviewUrl] = useState(src ? src : "/images/avatar-holder.jpg");
   const [file, setFile] = useState()
   const [isValid, setIsValid] = useState(false)
   

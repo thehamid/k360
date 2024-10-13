@@ -2,8 +2,8 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-const CardHero = (props) => {
-  const { data } = props;
+const CardHero = ({data}) => {
+ 
   return (
     <div className="cardhero">
       <article className="relative flex aspect-video h-auto w-[100%] m-5 items-end overflow-hidden rounded-lg bg-black text-white">
@@ -18,7 +18,7 @@ const CardHero = (props) => {
         </div>
         <div className="absolute bottom-2 flex flex-col m-3 ">
           <Link href={`/article/${data.slug}`}>
-            <h3 className=" line-clamp-1 font-bold text-2xl mb-3 ">
+            <h3 className="font-bold text-2xl mb-3">
               {data.title}
             </h3>{" "}
           </Link>

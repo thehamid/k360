@@ -39,7 +39,7 @@ const Hero = () => {
               disableOnInteraction: false,
               pauseOnMouseEnter: true,
             }}
-            modules={[Autoplay]}
+             modules={[Autoplay]}
           className="sliderhero"
           breakpoints={{
             680: {
@@ -57,8 +57,8 @@ const Hero = () => {
           }}
         >
           {heroInfo.map((da, i) => (
-            <SwiperSlide>
-              <CardHero key={i} data={da} />
+            <SwiperSlide key={i}>
+              <CardHero  data={da} />
             </SwiperSlide>
           ))}
         </Swiper>

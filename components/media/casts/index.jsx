@@ -15,7 +15,7 @@ const Casts = ({ media_id}) => {
 
     useEffect(() => {
         getData();
-      }, []);
+      }, [media_id]);
       //get
       async function getData() {
         await axios
@@ -45,13 +45,14 @@ const Casts = ({ media_id}) => {
         ) : (
             allCast.map((cast, i) => (
               cast.person_cat == "بازیگر" ? 
-          <Link href={`/person/${cast.person_id.slug}`} className="flex flex-col justify-center gap-2 md:flex-row md:justify-start" >
+          <Link key={i} href={`/person/${cast.person_id.slug}`} className="flex flex-col justify-center gap-2 md:flex-row md:justify-start" >
               <div className="p-1">
                 <Image
                   src={cast.thumb}
                   width={80}
                   height={80}
-                  className="rounded-md w-20 h-20 "
+                      className="rounded-md w-20 h-20 "
+                      alt={cast.person_id.name}
                 /> 
               </div>
               <div className="p-1 flex flex-col justify-center gap-2">

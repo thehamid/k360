@@ -7,7 +7,7 @@ import { RiTelegramLine } from "react-icons/ri";
 const Footer = () => {
   return (
     <footer className="w-full min-h-48 bg-zinc-800">
-      <div className="container m-auto flex justify-between text-gray-50 p-5 mt-20">
+      <div className="container m-auto flex flex-col md:flex-row justify-between gap-2 text-gray-50 p-5 mt-20">
         
       <div className="flex flex-col justify-start items-center">
         <Link href="/" className="flex justify-center items-center">

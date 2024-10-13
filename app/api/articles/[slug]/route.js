@@ -1,3 +1,4 @@
+export const dynamic='force-dynamic'
 import connect from '@/utils/db'
 import { Article } from "@/models/Article"
 import {NextResponse } from 'next/server';

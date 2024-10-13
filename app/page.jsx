@@ -1,5 +1,8 @@
-import Boxes from '@/components/boxes'
-import Hero from '../components/hero'
+import dynamic from 'next/dynamic'
+
+
+const Boxes = dynamic(() => import('@/components/boxes'), { ssr: false })
+const Hero = dynamic(() => import('@/components/hero'), { ssr: false })
 
 
 export default function HomePage() {

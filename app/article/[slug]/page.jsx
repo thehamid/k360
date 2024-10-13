@@ -46,7 +46,7 @@ export async function generateMetadata({ params}) {
 const SingleArticle = async ({params}) => {
 
   const postData = await getData(params.slug)
-  console.log(postData)
+
   return (
     <div>
       {!postData ?

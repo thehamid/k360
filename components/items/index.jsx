@@ -42,8 +42,8 @@ const Items = ({newItems}) => {
         ) : (
 
         newItems.map((da, i) => (
-          <SwiperSlide>
-            <Item data={da} key={i} />
+          <SwiperSlide key={i}>
+            <Item data={da}  />
           </SwiperSlide>
         )))}
       </Swiper>

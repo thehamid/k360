@@ -46,7 +46,7 @@ const userSchema = new Schema(
     },
     createdAt: {
       type: String,
-      default:'',
+      default:Date.now(),
     },
     refreshToken: {
       type: String,

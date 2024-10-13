@@ -395,11 +395,11 @@ const NewMedia = () => {
             
                     <div className="mb-4">
                       <label className="text-sm">پوستر</label>
-                      <ImageSelector useImage={setPoster} src={'/images/avatar-holder.jpg'} />
+                      <ImageSelector saveImage={setPoster} src={'/images/avatar-holder.jpg'} />
                     </div>
                     <div className="mb-4">
                       <label className="text-sm">سربرگ</label>
-                      <ImageSelector useImage={setHeader} src={'/images/avatar-holder.jpg'}/>
+                      <ImageSelector saveImage={setHeader} src={'/images/avatar-holder.jpg'}/>
                     </div>
                   </div>
                 </div>

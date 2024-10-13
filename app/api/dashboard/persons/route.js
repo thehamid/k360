@@ -1,3 +1,4 @@
+export const dynamic='force-dynamic'
 import connect from "@/utils/db";
 import { Person } from "@/models/Person";
 import { NextRequest, NextResponse } from "next/server";
@@ -20,7 +21,7 @@ export async function GET(req) {
       .populate("cats")
       .skip((pageNumber - 1) * paginate)
       .limit(paginate)
-      .select({ name: 1, imgPerson: 1, cats: 1, published: 1 });
+      .select({ name: 1, imgPerson: 1, cats: 1, published: 1,slug:1 });
 
     const allPersonNumber = (await Person.find().lean()).length;
 

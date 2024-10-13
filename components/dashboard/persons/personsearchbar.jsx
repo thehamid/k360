@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import AsyncSelect from "react-select/async";
-import makeAnimated from "react-select/animated";
+import dynamic from 'next/dynamic'
 
+const AsyncSelect = dynamic(() => import("react-select/async"), { ssr: false });
+const makeAnimated = dynamic(() => import("react-select/animated"), { ssr: false });
 
 const PersonSearchBar = ({ setCollabs }) => {
   //set default query terms

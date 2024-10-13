@@ -5,7 +5,7 @@ import axios from "axios";
 import ImageUpload from "@/components/formElement/imageupload";
 import Image from "next/image";
 
-export default function ImageSelector({ useImage, src }) {
+export default function ImageSelector({ saveImage, src }) {
   let [isOpen, setIsOpen] = useState(false);
   const [previewUrl, setPreviewUrl] = useState(
     src ? src : "/images/avatar-holder.jpg"
@@ -16,8 +16,8 @@ export default function ImageSelector({ useImage, src }) {
   const [itemID, setItemID] = useState();
 
   function closeModal() {
-    setPreviewUrl(img? img : "/images/avatar-holder.jpg");
-    useImage(img);
+    setPreviewUrl(img ? img : "/images/avatar-holder.jpg");
+    saveImage(img);
     setIsOpen(false);
   }
 
@@ -140,13 +140,13 @@ export default function ImageSelector({ useImage, src }) {
                             type="text"
                             name="Imageurl"
                             defaultValue={img}
-                                />
-                                             <span
-                                  onClick={() => deletehandler(itemID)}
-                                  className="text-red-600 text-sm pt-6 cursor-pointer"
-                                >
-                                  حذف تصویر از گالری
-                                </span>        
+                          />
+                          <span
+                            onClick={() => deletehandler(itemID)}
+                            className="text-red-600 text-sm pt-6 cursor-pointer"
+                          >
+                            حذف تصویر از گالری
+                          </span>
                         </div>
                       </div>
                       <div className="p-2  bg-zinc-900 rounded-lg">
@@ -157,19 +157,22 @@ export default function ImageSelector({ useImage, src }) {
                         ) : (
                           <div className="grid grid-cols-3 md:grid-cols-6 gap-4">
                             {files.map((item, i) => (
-                              <div className="relative">
+                              <div key={i} className="relative">
                                 <Image
-                                 onClick = { () => selectImage(item) }
-                                 className="block h-full w-full rounded-lg object-cover object-center cursor-pointer"
-                                 style={{ border : itemID===item._id ? '3px solid #FF0032' : 'none' }}
-                           key = { i }
-                           src = { item.url }
-                           width = { 200}
-                           height = { 200}
-                           alt = { item._id }
-                           priority = { true}
+                                  onClick={() => selectImage(item)}
+                                  className="block h-full w-full rounded-lg object-cover object-center cursor-pointer"
+                                  style={{
+                                    border:
+                                      itemID === item._id
+                                        ? "3px solid #FF0032"
+                                        : "none",
+                                  }}
+                                  src={item.url}
+                                  width={200}
+                                  height={200}
+                                  alt={item._id}
+                                  priority={true}
                                 />
-                           
                               </div>
                             ))}
                           </div>

@@ -170,7 +170,7 @@ const Episode = ({ media_id }) => {
             <div className="ml-3">
               <div className="mb-4">
                 <label className="text-sm">کاور قسمت</label>
-                <ImageSelector useImage={setCover} src={cover} />
+                <ImageSelector saveImage={setCover} src={cover} />
               </div>
             </div>
             <div className="flex-1">
@@ -254,7 +254,7 @@ const Episode = ({ media_id }) => {
             <div className="ml-3">
               <div className="mb-4">
                 <label className="text-sm">کاور قسمت</label>
-                <ImageSelector useImage={setCover} src={cover} />
+                <ImageSelector saveImage={setCover} src={cover} />
               </div>
             </div>
             <div className="flex-1">

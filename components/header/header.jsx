@@ -11,7 +11,7 @@ const data = await fetch(`${process.env.SERVER_URL}/api/users/${user_id}`, {
   cache: "no-store", headers: {
      id: user_id
   }
-});
+});  
 return data.json(); 
   
 }

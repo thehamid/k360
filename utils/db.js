@@ -1,22 +1,42 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
-const connect = async () => {
-  if (mongoose.connections[0].readyState) return;
+const MONGODB_URL = process.env.MONGODB_URL
 
-  try {
-    await mongoose.connect('mongodb://127.0.0.1:27017/k360');
-    console.log("Mongo Connection successfully established.");
-  } catch (error) {
-    throw new Error("Error connecting to Mongoose");
-  }
-};
+if (!MONGODB_URL) {
+    throw new Error(
+        'Please define the MONGODB_URL environment variable inside .env.local'
+    )
+}
+
+let cached = global.mongoose
+
+if (!cached) {
+    cached = global.mongoose = { conn: null, promise: null }
+}
+
+async function connect() {
+    if (cached.conn) {
+        return cached.conn
+    }
+
+    if (!cached.promise) {
+        const opts = {
+            bufferCommands: false,
+        }
+
+        cached.promise = mongoose.connect(MONGODB_URL, opts).then((mongoose) => {
+            return mongoose
+        })
+    }
+
+    try {
+        cached.conn = await cached.promise
+    } catch (e) {
+        cached.promise = null
+        throw e
+    }
+
+    return cached.conn
+}
 
 export default connect;
-
-
-
-
-
-
-
-

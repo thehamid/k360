@@ -1,3 +1,4 @@
+export const dynamic='force-dynamic'
 import { withAuth } from "next-auth/middleware"
 
 export default withAuth(

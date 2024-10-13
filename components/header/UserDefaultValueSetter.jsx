@@ -7,7 +7,7 @@ import { setRoleValue } from "@/lib/redux/slices/user/roleSlice";
 
 const UserDefaultValueSetter = ({ setter }) => {
   const dispatch = useDispatch();
-
+  
   dispatch(setAvatarValue(setter.data.avatar));
   dispatch(logedToTrue());
   dispatch(setRoleValue(setter.data.roles));

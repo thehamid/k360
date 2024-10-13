@@ -10,7 +10,7 @@ const EpisodeMain = ({media_id,season_number,episode_number }) => {
 
     useEffect(() => {
         getEpisode()
-    }, []);
+    }, [media_id]);
     
     //get Seasons
     async function getEpisode() {

@@ -2,10 +2,12 @@
 import { useRef, useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import ImageSelector from "@/components/formElement/image-selector";
-import PersonSearchBar from "@/components/dashboard/persons/personsearchbar";
 import { LuPlus, LuMinus, LuTrash, LuPen } from "react-icons/lu";
 import axios from "axios";
 import Image from "next/image";
+import dynamic from 'next/dynamic'
+
+const PersonSearchBar = dynamic(() => import("@/components/dashboard/persons/personsearchbar"), { ssr: false });
 
 const Casting = ({ media_id }) => {
   const roleRef = useRef();
@@ -24,14 +26,14 @@ const Casting = ({ media_id }) => {
 
   useEffect(() => {
     getData();
-  }, [addCast,reload]);
+  }, [addCast, reload]);
   //get
   async function getData() {
     await axios
       .get(`/api/dashboard/medias/casts/${media_id}`)
       .then((d) => {
         setallCast(d.data.data);
-        setReload(false)
+        setReload(false);
       })
       .catch((e) => {
         console.log(e.response);
@@ -61,7 +63,7 @@ const Casting = ({ media_id }) => {
     if (response.status === 200) {
       toast.success(" به عوامل اضافه شد");
       togglePlus();
-      setReload(true)
+      setReload(true);
     } else if (response.status === 402) {
       toast.error(responseData.data);
     } else if (response.status === 500) {
@@ -73,9 +75,6 @@ const Casting = ({ media_id }) => {
     setAddCast((current) => !current);
   };
 
-
-
-     
   // Delete Cat
   const deletehandler = async (id) => {
     await fetch(`/api/dashboard/medias/casts/${id}`, {
@@ -89,31 +88,28 @@ const Casting = ({ media_id }) => {
       .then((messages) => {
         console.log("messages");
       });
-    toast.warning("دسته حذف شد");  
+    toast.warning("دسته حذف شد");
     setReload(true);
   };
 
-
-  const edithandler = (id,role,pos,cat,person_id,thumb) => {
+  const edithandler = (id, role, pos, cat, person_id, thumb) => {
     setEdit(true);
-    setID(id)
-    setRoleValue(role)
-    setPosValue(pos) 
-    setCatValue(cat) 
-    setCollabs(person_id)
-    setthumbCast(thumb)  
-  }
+    setID(id);
+    setRoleValue(role);
+    setPosValue(pos);
+    setCatValue(cat);
+    setCollabs(person_id);
+    setthumbCast(thumb);
+  };
   useEffect(() => {
-    setCollabs(collabs)
-    setthumbCast(thumbCast) 
+    setCollabs(collabs);
+    setthumbCast(thumbCast);
   }, [edit]);
 
-
-   //Edit Cast
+  //Edit Cast
   const EditCast = async (edid) => {
-      
     if (!edit) {
-      return
+      return;
     }
 
     const formData = {
@@ -137,7 +133,7 @@ const Casting = ({ media_id }) => {
     if (response.status === 200) {
       toast.success(" به عوامل اضافه شد");
       setEdit(false);
-      setReload(true)
+      setReload(true);
     } else if (response.status === 402) {
       toast.error(responseData.data);
     } else if (response.status === 500) {
@@ -149,11 +145,18 @@ const Casting = ({ media_id }) => {
     <div>
       <div className="flex flex-row justify-between">
         <label className="text-sm"> بازیگر و عوامل</label>
-        <span className="text-gray-400 hover:text-gray-100 p-1 cursor-pointer" onClick={togglePlus}>
+        <span
+          className="text-gray-400 hover:text-gray-100 p-1 cursor-pointer"
+          onClick={togglePlus}
+        >
           {addCast ? <LuMinus /> : <LuPlus />}
         </span>
       </div>
-      {!addCast ? ("") : edit ?("") : (
+      {!addCast ? (
+        ""
+      ) : edit ? (
+        ""
+      ) : (
         <div className="plus-card">
           <div className="mb-4">
             <label className="text-sm">جستجو در اشخاص</label>
@@ -163,14 +166,14 @@ const Casting = ({ media_id }) => {
             <label className="text-sm"> {collabs.name} </label>
             <label className="text-sm"> {collabs._id}</label>
           </div>
-          <div className="flex flrx-row">
-            <div className="ml-3">
+          <div class="grid grid-rows-3 grid-flow-col gap-4">
+            <div class="row-span-3 ">
               <div className="mb-4">
                 <label className="text-sm">تصویر شخص</label>
-                <ImageSelector useImage={setthumbCast} src={thumbCast} />
+                <ImageSelector saveImage={setthumbCast} src={thumbCast} />
               </div>
             </div>
-            <div className="flex-1">
+            <div class="col-span-2 ">
               <div className="mb-4">
                 <label className="text-sm">نقش شخص</label>
                 <input
@@ -180,32 +183,27 @@ const Casting = ({ media_id }) => {
                   name="role"
                 />
               </div>
-              <div className="mb-4">
-                  <div className="flex flex-row">
-                    <div className="p-1">
-                    <label className="text-sm">موقعیت</label>
-                <input
-                  ref={positionRef}
-                  type="text"
-                  className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md"
-                  name="position"
-                />
-                    </div>
-                    <div className="p-1">
-                    <label className="text-sm">سمت</label>
-                <input
-                  ref={catRef}
-                  type="text"
-                  className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md"
-                  name="person_cat"
-                />
-                    </div>
-
-
-
-                  </div>
-
-            
+            </div>
+            <div class="row-span-2 col-span-2 ">
+              <div className="flex flex-row">
+                <div className="p-1">
+                  <label className="text-sm">موقعیت</label>
+                  <input
+                    ref={positionRef}
+                    type="text"
+                    className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md"
+                    name="position"
+                  />
+                </div>
+                <div className="p-1">
+                  <label className="text-sm">سمت</label>
+                  <input
+                    ref={catRef}
+                    type="text"
+                    className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md"
+                    name="person_cat"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -222,7 +220,7 @@ const Casting = ({ media_id }) => {
         </div>
       )}
 
-{!edit ? (
+      {!edit ? (
         ""
       ) : (
         <div className="plus-card">
@@ -238,48 +236,43 @@ const Casting = ({ media_id }) => {
             <div className="ml-3">
               <div className="mb-4">
                 <label className="text-sm">تصویر شخص</label>
-                <ImageSelector useImage={setthumbCast} src={thumbCast} />
+                <ImageSelector saveImage={setthumbCast} src={thumbCast} />
               </div>
             </div>
             <div className="flex-1">
               <div className="mb-4">
                 <label className="text-sm">نقش شخص</label>
                 <input
-                    ref={roleRef}
-                    defaultValue={role_value}
+                  ref={roleRef}
+                  defaultValue={role_value}
                   type="text"
                   className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md"
                   name="role"
                 />
               </div>
-                <div className="mb-4">
-                  <div className="flex flex-row">
-                    <div className="p-1">
+              <div className="mb-4">
+                <div className="flex flex-row">
+                  <div className="p-1">
                     <label className="text-sm">موقعیت</label>
-                <input
-                  ref={positionRef}
-                  defaultValue={pos_value}
-                  type="text"
-                  className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md"
-                  name="position"
-                />
-                    </div>
-                    <div className="p-1">
-                    <label className="text-sm">سمت</label>
-                <input
-                  ref={catRef}
-                  defaultValue={cat_value}
-                  type="text"
-                  className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md"
-                  name="person_cat"
-                />
-                    </div>
-
-
-
+                    <input
+                      ref={positionRef}
+                      defaultValue={pos_value}
+                      type="text"
+                      className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md"
+                      name="position"
+                    />
                   </div>
-
-            
+                  <div className="p-1">
+                    <label className="text-sm">سمت</label>
+                    <input
+                      ref={catRef}
+                      defaultValue={cat_value}
+                      type="text"
+                      className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md"
+                      name="person_cat"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -302,8 +295,6 @@ const Casting = ({ media_id }) => {
           </div>
         </div>
       )}
-
-      
 
       <div className="flex flex-col gap-3 mt-2">
         {allCast == -1 ? (
@@ -329,7 +320,16 @@ const Casting = ({ media_id }) => {
               </div>
               <div className="flex justify-end">
                 <span
-                  onClick={() => edithandler(c._id,c.role_name,c.position,c.person_cat,c.person_id,c.thumb)}
+                  onClick={() =>
+                    edithandler(
+                      c._id,
+                      c.role_name,
+                      c.position,
+                      c.person_cat,
+                      c.person_id,
+                      c.thumb
+                    )
+                  }
                   class="text-gray-400 hover:text-gray-100  mx-2 cursor-pointer"
                 >
                   <LuPen />
@@ -347,9 +347,6 @@ const Casting = ({ media_id }) => {
           ))
         )}
       </div>
-
-    
-
     </div>
   );
 };

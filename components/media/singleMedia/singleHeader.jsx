@@ -66,7 +66,7 @@ const SingleHeader = ({ media, season,page, children }) => {
                     </li>
                   ))}
                   {media.genre.map((g, i) => (
-                    <li>
+                    <li key={i}>
                       <span>
                         <Link href={`/genre/${g.slug}`}>{g.title}</Link>
                       </span>
@@ -178,6 +178,7 @@ const SingleHeader = ({ media, season,page, children }) => {
                         height={612}
                         loading="lazy"
                         className="rounded-lg"
+                        alt={media.title}
                       />
                     </picture>
                   </Link>

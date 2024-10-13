@@ -67,7 +67,7 @@ const Photos = ({ media_id, episode_id }) => {
           <Loading/>
         ) : (
               allPhoto.map((photo, i) => (
-          <SwiperSlide>
+          <SwiperSlide key={i}>
               <div className="p-1">
                 <Image
                   src={photo.url}

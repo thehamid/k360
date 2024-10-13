@@ -97,7 +97,7 @@ const Photos = ({ media_id,episode_id }) => {
             <div className="ml-3">
               <div className="mb-4">
                 <label className="text-sm">تصویر </label>
-                <ImageSelector useImage={setUrlPhoto} src={urlPhoto} />
+                <ImageSelector saveImage={setUrlPhoto} src={urlPhoto} />
               </div>
             </div>      
           </div>

@@ -1,3 +1,4 @@
+export const dynamic='force-dynamic'
 import connect from '@/utils/db'
 import { Media,Season } from "@/models/Media"
 import { NextResponse } from 'next/server';

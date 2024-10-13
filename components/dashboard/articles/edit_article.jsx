@@ -4,7 +4,7 @@ import { useRouter,useParams } from "next/navigation";
 import { toast } from "react-toastify";
 import axios from "axios";
 import Editor from '@/components/formElement/custom-editor'
-import ImageUpload from '@/components/formElement/imageupload'
+import ImageSelector from '@/components/formElement/image-selector'
 import { LuXSquare } from "react-icons/lu";
 import Cookies from 'js-cookie'
 
@@ -12,7 +12,7 @@ import Cookies from 'js-cookie'
 const EditArticle = (req) => {
   const [content, setContent] = useState('');
   const [img, setImage] = useState();
-  const [srcImg,setSrcImg] = useState();
+  const [thumb, setThumb] = useState();
   const [oldData, setoldData] = useState(-1);
   const router = useRouter();
   const date = new Date();
@@ -37,7 +37,7 @@ const EditArticle = (req) => {
       .then(
         (d) => {
           setoldData(d.data.data)
-          setSrcImg(d.data.data.imgArticle)
+          setThumb(d.data.data.imgArticle)
           setCheckCats(d.data.data.cats)
           setTag(d.data.data.tags)
           setContent(d.data.data.content)
@@ -110,28 +110,12 @@ const EditArticle = (req) => {
 
 
 
-    //upload Image
-    const  uploadImage = (props) => {
-      const data= new FormData()
-      data.append('file', props)
-      
-      axios
-        .post("/api/upload", data)
-        .then(
-          (d) => {
-            setImage(d.data.data)
-          }
-        )
-        .catch((e) => console.log(e.response));
-    }
-
-
   //Save Article
   const SendArticle = async (e) => {
     e.preventDefault();
     let finalSlug = slugRef.current.value == "" ? titleRef.current.value : slugRef.current.value
     finalSlug = finalSlug.replace(/\s+/g, '-').toLowerCase()
-    const pic={img}
+    const imgThumb = { thumb };
     const formData = {
       title: titleRef.current.value,
       excerpt:excerptRef.current.value,
@@ -141,7 +125,7 @@ const EditArticle = (req) => {
       author:Cookies.get("token_id"),
       source: sourceRef.current.value,
       slug:finalSlug,
-      imgArticle: pic.img == "" ? '/image/avatr-holder.jpg' : pic.img,
+      imgArticle: imgThumb.thumb == "" ? "/image/avatr-holder.jpg" : imgThumb.thumb,
       createdAt: date.toLocaleDateString("fa-IR", {
         year: "numeric",
         month: "long",
@@ -287,7 +271,7 @@ const EditArticle = (req) => {
 
                     <div class="mb-4">
                       <label class="text-sm">تصویر شاخص</label>
-                      <ImageUpload onInput={uploadImage} src={srcImg}/>
+                      <ImageSelector saveImage={setThumb} src={thumb} />
                     </div>
                   </div>
                 </div>

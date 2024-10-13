@@ -52,7 +52,7 @@ function Navbar() {
           <>
             <Menu as="div" className="relative inline-block">
                 <Menu.Button className="text-white-500">
-                  <Image src={avatar.value} alt={session.user.name} width={50} height={50} className='aspect-square rounded-md w-[20px] sm:w-[36px] object-cover'/>               
+                  <Image src={avatar.value?avatar.value:'/images/avatar-holder.jpg'} alt={session.user.name} width={50} height={50} className='aspect-square rounded-md w-[20px] sm:w-[36px] object-cover'/>               
               </Menu.Button>
               <Transition
                 enter="transition duration-100 ease-out"
@@ -65,7 +65,7 @@ function Navbar() {
                   <Menu.Items className="absolute z-10 left-0 w-56 bg-zinc-600 rounded-xl p-4 origin-top-right border-w border-slate-100">
                     <div className="flex flex-row p-1 justify-start">
                       <div>
-                      <Image src={avatar.value} alt={session.user.name} width={50} height={50} className='aspect-square rounded-md w-[20px] sm:w-[36px] object-cover'/>
+                      <Image src={avatar.value?avatar.value:'/images/avatar-holder.jpg'} alt={session.user.name} width={50} height={50} className='aspect-square rounded-md w-[20px] sm:w-[36px] object-cover'/>
                      </div>
                       <div className="flex flex-col mr-2">
                         <small>{session.user.name }</small>

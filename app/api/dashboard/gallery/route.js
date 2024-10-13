@@ -1,7 +1,7 @@
+export const dynamic='force-dynamic'
 import connect from '@/utils/db'
 import File from "@/models/File"
 import { NextResponse } from 'next/server';
-import { getServerSession } from "next-auth";
 
 export async function GET(req) {
 

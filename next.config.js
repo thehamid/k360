@@ -1,17 +1,12 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const nextConfig = {
+  images:{
+     domains:[
+        "file.kelaket360.ir"
+      ],
+      loader: 'custom',
+      loaderFile: './utils/loader.js', 
+  }
+}
 
 module.exports = nextConfig
-
-module.exports = {
-    images: {
-      remotePatterns: [
-        {
-          protocol: 'https',
-          hostname: 'loremflickr.com',
-          port: '',
-          pathname: '/320/**',
-        },
-      ],
-    },
-  }

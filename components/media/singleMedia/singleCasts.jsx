@@ -11,7 +11,7 @@ const SingleCasts = ({ media_id }) => {
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [media_id]);
 
   //Episodes
   async function getData() {
@@ -19,7 +19,6 @@ const SingleCasts = ({ media_id }) => {
       .get(`/api/medias/casts/${media_id}`)
       .then((d) => {
         setallCast(d.data.data);
-        console.log(d.data.data);
       })
       .catch((e) => {
         console.log(e.response);
@@ -65,6 +64,7 @@ const SingleCasts = ({ media_id }) => {
                       width={80}
                       height={80}
                       className="rounded-md w-20 h-20 "
+                      alt={cast.person_id.name}
                     />
                   </div>
                   <div className="p-1 flex flex-col gap-2">
@@ -98,6 +98,7 @@ const SingleCasts = ({ media_id }) => {
                       width={80}
                       height={80}
                       className="rounded-md w-20 h-20 "
+                      alt={cast.person_id.name}
                     />
                   </div>
                   <div className="p-1 flex flex-col gap-2">
@@ -129,6 +130,7 @@ const SingleCasts = ({ media_id }) => {
                       width={80}
                       height={80}
                       className="rounded-md w-20 h-20 "
+                      alt={cast.person_id.name}
                     />
                   </div>
                   <div className="p-1 flex flex-col gap-2">

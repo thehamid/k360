@@ -66,9 +66,9 @@ const Episodes = ({ media_id, media_slug }) => {
           <p>Error...</p>
         ) : (
           allEpisode.map((ep, i) => (
-          <SwiperSlide>
+          <SwiperSlide key={i}>
            
-             <EpisodeCard key={i} data={ep} media_slug={media_slug} />
+             <EpisodeCard  data={ep} media_slug={media_slug} />
             
           </SwiperSlide>
         )))}

@@ -89,12 +89,11 @@ const GalleryDash = () => {
         ) : (
           <div className="grid grid-cols-3 md:grid-cols-6 gap-4">
                 {files.map((item, i) => (
-             <div className="relative">
+             <div className="relative" key = { i }>
               < Image
                 onClick = { () => selectImage(item) }
                       className="block h-full w-full rounded-lg object-cover object-center cursor-pointer"
                       style={{ border : itemID===item._id ? '3px solid #FF0032' : 'none' }}
-                key = { i }
                 src = { item.url }
                 width = { 200}
                 height = { 200}

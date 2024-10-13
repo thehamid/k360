@@ -452,11 +452,11 @@ const EditMedia = () => {
 
                       <div className="mb-4">
                         <label className="text-sm">پوستر</label>
-                        <ImageSelector useImage={setPoster} src={poster} />
+                        <ImageSelector saveImage={setPoster} src={poster} />
                       </div>
                       <div className="mb-4">
                         <label className="text-sm">سربرگ</label>
-                        <ImageSelector useImage={setHeader} src={header} />
+                        <ImageSelector saveImage={setHeader} src={header} />
                       </div>
                     </div>
                   </div>
